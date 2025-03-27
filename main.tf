@@ -88,17 +88,17 @@ resource "azurerm_virtual_machine" "main" {
     environment = "staging"
   }
 
-  # provisioner "file" {
-  #   source      = "./index.html"
-  #   destination = "/home/index.html"
+  provisioner "file" {
+    source      = "./index.html"
+    destination = "/home/index.html"
 
-  #   connection {
-  #     type     = "ssh"
-  #     user     = "testadmin"
-  #     password = "Password1234!"
-  #     host     = azurerm_public_ip.example.ip_address
-  #   }
-  # }
+    connection {
+      type     = "ssh"
+      user     = "testadmin"
+      password = "Password1234!"
+      host     = azurerm_public_ip.example.ip_address
+    }
+  }
 
   provisioner "remote-exec" {
     connection {
@@ -111,7 +111,7 @@ resource "azurerm_virtual_machine" "main" {
     inline = [
       "sudo apt-get update -y",
       "sudo apt-get install -y nginx",
-      # "sudo mv /home/index.html /usr/share/nginx/html/index.html",
+      "sudo mv /home/index.html /usr/share/nginx/html/index.html",
       "sudo systemctl restart nginx"
     ]
   }
